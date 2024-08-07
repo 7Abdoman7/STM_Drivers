@@ -1,3 +1,0 @@
-RCC_Program.c:11:6:MCAL_RCC_voidInit	4	static
-RCC_Program.c:55:6:MCAL_RCC_voidEnablePeripheral	16	static
-RCC_Program.c:71:6:MCAL_RCC_voidDisablePeripheral	16	static
