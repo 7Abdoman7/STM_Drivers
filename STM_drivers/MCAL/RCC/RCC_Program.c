@@ -52,36 +52,36 @@ void MCAL_RCC_voidInit(void) {
 	RCC->CFGR |= (APB2_PRESCALE << RCC_CFGR_PPRE2_SHIFT);
 }
 
-void MCAL_RCC_voidEnablePeripheral(RCC_PeripheralId_t u8PeripheralId) {
-    u8 u8BusId = u8PeripheralId >> 16;
+void MCAL_RCC_voidEnablePeripheral(const RCC_PeripheralId_t peripheralId) {
+    u8 u8BusId = peripheralId >> 16;
 
     switch (u8BusId) {
         case (RCC_AHB_ID):
-            SET_BIT(RCC->AHBENR, u8PeripheralId & 0xFFFF);
+            SET_BIT(RCC->AHBENR, peripheralId & 0xFFFF);
         break;
         case (RCC_APB1_ID):
-            SET_BIT(RCC->APB1ENR, u8PeripheralId & 0xFFFF);
+            SET_BIT(RCC->APB1ENR, peripheralId & 0xFFFF);
         break;
         case (RCC_APB2_ID):
-            SET_BIT(RCC->APB2ENR, u8PeripheralId & 0xFFFF);
+            SET_BIT(RCC->APB2ENR, peripheralId & 0xFFFF);
         break;
         default:
         break;
     }
 }
 
-void MCAL_RCC_voidDisablePeripheral(RCC_PeripheralId_t u8PeripheralId) {
-    u8 u8BusId = u8PeripheralId >> 16;
+void MCAL_RCC_voidDisablePeripheral(const RCC_PeripheralId_t peripheralId) {
+    u8 u8BusId = peripheralId >> 16;
 
     switch (u8BusId) {
         case (RCC_AHB_ID):
-            CLR_BIT(RCC->AHBENR, u8PeripheralId & 0xFFFF);
+            CLR_BIT(RCC->AHBENR, peripheralId & 0xFFFF);
         break;
         case (RCC_APB1_ID):
-            CLR_BIT(RCC->APB1ENR, u8PeripheralId & 0xFFFF);
+            CLR_BIT(RCC->APB1ENR, peripheralId & 0xFFFF);
         break;
         case (RCC_APB2_ID):
-            CLR_BIT(RCC->APB2ENR, u8PeripheralId & 0xFFFF);
+            CLR_BIT(RCC->APB2ENR, peripheralId & 0xFFFF);
         break;
         default:
         break;

@@ -74,8 +74,8 @@ typedef enum {
 #define RCC_APB2_ID		(0x3)
 
 void MCAL_RCC_voidInit(void);
-void MCAL_RCC_voidEnablePeripheral(RCC_PeripheralId_t u8PeripheralId);
-void MCAL_RCC_voidDisablePeripheral(RCC_PeripheralId_t u8PeripheralId);
+void MCAL_RCC_voidEnablePeripheral(const RCC_PeripheralId_t peripheralId);
+void MCAL_RCC_voidDisablePeripheral(const RCC_PeripheralId_t peripheralId);
 
 
 #endif /* RCC_RCC_INTERFACE_H_ */

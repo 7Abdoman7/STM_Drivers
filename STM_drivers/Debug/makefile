@@ -11,6 +11,7 @@ RM := rm -rf
 -include Startup/subdir.mk
 -include Src/subdir.mk
 -include MCAL/RCC/subdir.mk
+-include MCAL/GPIO/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -31,6 +32,9 @@ default.size.stdout \
 
 OBJDUMP_LIST += \
 STM_drivers.list \
+
+OBJCOPY_HEX += \
+STM_drivers.hex \
 
 OBJCOPY_BIN += \
 STM_drivers.bin \
@@ -55,6 +59,11 @@ STM_drivers.list: $(EXECUTABLES)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+STM_drivers.hex: $(EXECUTABLES)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "STM_drivers.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 STM_drivers.bin: $(EXECUTABLES)
 	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "STM_drivers.bin"
 	@echo 'Finished building: $@'
@@ -65,7 +74,7 @@ clean:
 	-$(RM) *
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)
 
 .PHONY: all clean dependents
 .SECONDARY:
