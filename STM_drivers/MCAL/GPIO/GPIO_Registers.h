@@ -15,17 +15,18 @@
 #define GPIOB_ADDR_BASE             (0x40010C00)
 
 typedef struct {
-	u32 CRL;
-	u32 CRH;
-	u32 IDR;
-	u32 ODR;
-	u32 BSRR;
-	u32 BRR;
-	u32 LCKR;
+	volatile u32 CRL;
+	volatile u32 CRH;
+	volatile u32 IDR;
+	volatile u32 ODR;
+	volatile u32 BSRR;
+	volatile u32 BRR;
+	volatile u32 LCKR;
 } GPIO_RegDef_t;
 
 #define GPIOA                       ((GPIO_RegDef_t*) GPIOA_ADDR_BASE)
 #define GPIOB                       ((GPIO_RegDef_t*) GPIOB_ADDR_BASE)
+#define GPIOC                       ((GPIO_RegDef_t*) GPIOB_ADDR_BASE)
 
 #define GPIO_CRL_SHIFT				(4)
 

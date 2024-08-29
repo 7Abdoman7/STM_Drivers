@@ -17,6 +17,9 @@ void MCAL_GPIO_voidInit(GPIO_Config_t * config) {
 		case (PORTB):
 			gpioTemp = GPIOB;
 		break;
+		case (PORTC):
+			gpioTemp = GPIOC;
+		break;
 	}
 
 	if (8 > config->pinNumber) {
@@ -62,13 +65,14 @@ void MCAL_GPIO_voidInit(GPIO_Config_t * config) {
 }
 
 GPIO_Pin_State_t MCAL_GPIO_voidReadPin(GPIO_RegDef_t* GPIOx, u8 pinNumber) {
-    return (GPIOx->IDR >> pinNumber) & 0x01;
+    return ((GPIOx->IDR >> pinNumber) & 0x01);
 }
 
 void MCAL_GPIO_voidWritePin(GPIO_RegDef_t* GPIOx, u8 pinNumber, u8 value) {
     if (value == GPIO_PIN_SET) {
         GPIOx->BSRR |= (1 << pinNumber);
-    } else {
+    }
+    else {
         GPIOx->BRR |= (1 << pinNumber);
     }
 }

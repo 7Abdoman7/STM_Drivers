@@ -17,6 +17,7 @@
 typedef enum {
 	PORTA,
 	PORTB,
+	PORTC,
 } GPIO_Port_t;
 
 typedef enum {

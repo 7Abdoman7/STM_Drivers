@@ -16,18 +16,17 @@
 #define RCC_BASE_ADDR	(0x40021000)
 
 typedef struct {
-	u32 CR;
-	u32 CFGR;
-	u32 CIR;
-	u32 APB2RSTR;
-	u32 APB1RSTR;
-	u32 AHBENR;
-	u32 APB2ENR;
-	u32 APB1ENR;
-	u32 BDCR;
-	u32 CSR;
+	volatile u32 CR;
+	volatile u32 CFGR;
+	volatile u32 CIR;
+	volatile u32 APB2RSTR;
+	volatile u32 APB1RSTR;
+	volatile u32 AHBENR;
+	volatile u32 APB2ENR;
+	volatile u32 APB1ENR;
+	volatile u32 BDCR;
+	volatile u32 CSR;
 } RCC_RegDef_t;
-
 
 #define RCC		((RCC_RegDef_t *) RCC_BASE_ADDR)
 
