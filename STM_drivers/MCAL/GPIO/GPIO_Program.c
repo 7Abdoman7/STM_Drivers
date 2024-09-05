@@ -22,47 +22,89 @@ void MCAL_GPIO_voidInit(GPIO_Config_t * config) {
 		break;
 	}
 
-	if (8 > config->pinNumber) {
-		if (config->mode == GPIO_MODE_INPUT_FLOATING
-				|| config->mode == GPIO_MODE_INPUT_PULLUP
-				|| config->mode == GPIO_MODE_INPUT_PULLDOWN
-				|| config->mode == GPIO_MODE_INPUT_ANALOG) {
-			gpioTemp->CRL &= ~(0b11 << GPIO_CRL_SHIFT * config->pinNumber);
-			if (config->mode == GPIO_MODE_INPUT_PULLDOWN) {
-				CLR_BIT(gpioTemp->ODR, config->pinNumber);
-			}
-			else if (config->mode == GPIO_MODE_INPUT_PULLUP) {
-				SET_BIT(gpioTemp->ODR, config->pinNumber);
-			}
+	if (config->pinNumber < 8) {
+		if (config->mode == GPIO_MODE_INPUT_FLOATING) {
+			gpioTemp->CRL &= ~(0b11 << (GPIO_CRL_SHIFT * config->pinNumber));
+			gpioTemp->CRL |= (0b01 << (GPIO_CRL_SHIFT * config->pinNumber));
 		}
-		else {
-			gpioTemp->CRL &= ~(0b11 << GPIO_CRL_SHIFT * config->pinNumber);
-			gpioTemp->CRL |= (config->speed << GPIO_CRL_SHIFT * config->pinNumber);
+		else if (config->mode == GPIO_MODE_INPUT_PULLUP) {
+			gpioTemp->CRL &= ~(0b11 << (GPIO_CRL_SHIFT * config->pinNumber));
+			gpioTemp->CRL |= (0b10 << (GPIO_CRL_SHIFT * config->pinNumber));
+			SET_BIT(gpioTemp->ODR, config->pinNumber);
 		}
-		gpioTemp->CRL &= ~(0b11 << ((GPIO_CRL_SHIFT * config->pinNumber) + 2));
-		gpioTemp->CRL |= (config->mode << ((GPIO_CRL_SHIFT * config->pinNumber) + 2));
+		else if (config->mode == GPIO_MODE_INPUT_PULLDOWN) {
+			gpioTemp->CRL &= ~(0b11 << (GPIO_CRL_SHIFT * config->pinNumber));
+			gpioTemp->CRL |= (0b10 << (GPIO_CRL_SHIFT * config->pinNumber));
+			CLR_BIT(gpioTemp->ODR, config->pinNumber);
+		}
+		else if (config->mode == GPIO_MODE_INPUT_ANALOG) {
+			gpioTemp->CRL &= ~(0b11 << (GPIO_CRL_SHIFT * config->pinNumber));
+			gpioTemp->CRL |= (0b00 << (GPIO_CRL_SHIFT * config->pinNumber));
+		}
+		else if (config->mode == GPIO_MODE_OUTPUT_PUSHPULL) {
+			gpioTemp->CRL &= ~(0b1111 << (GPIO_CRL_SHIFT * config->pinNumber));
+			gpioTemp->CRL |= (config->speed << (GPIO_CRL_SHIFT * config->pinNumber));
+			gpioTemp->CRL |= (0b00 << ((GPIO_CRL_SHIFT * config->pinNumber) + 2));
+		}
+		else if (config->mode == GPIO_MODE_OUTPUT_OPENDRAIN) {
+			gpioTemp->CRL &= ~(0b1111 << (GPIO_CRL_SHIFT * config->pinNumber));
+			gpioTemp->CRL |= (config->speed << (GPIO_CRL_SHIFT * config->pinNumber));
+			gpioTemp->CRL |= (0b01 << ((GPIO_CRL_SHIFT * config->pinNumber) + 2));
+		}
+		else if (config->mode == GPIO_MODE_AF_PUSHPULL) {
+			gpioTemp->CRL &= ~(0b1111 << (GPIO_CRL_SHIFT * config->pinNumber));
+			gpioTemp->CRL |= (config->speed << (GPIO_CRL_SHIFT * config->pinNumber));
+			gpioTemp->CRL |= (0b10 << ((GPIO_CRL_SHIFT * config->pinNumber) + 2));
+		}
+		else if (config->mode == GPIO_MODE_AF_OPENDRAIN) {
+			gpioTemp->CRL &= ~(0b1111 << (GPIO_CRL_SHIFT * config->pinNumber));
+			gpioTemp->CRL |= (config->speed << (GPIO_CRL_SHIFT * config->pinNumber));
+			gpioTemp->CRL |= (0b11 << ((GPIO_CRL_SHIFT * config->pinNumber) + 2));
+		}
 	}
 	else {
-		if (config->mode == GPIO_MODE_INPUT_FLOATING
-				|| config->mode == GPIO_MODE_INPUT_PULLUP
-				|| config->mode == GPIO_MODE_INPUT_PULLDOWN
-				|| config->mode == GPIO_MODE_INPUT_ANALOG) {
-			gpioTemp->CRH &= ~(0b11 << GPIO_CRL_SHIFT * config->pinNumber);
-			if (config->mode == GPIO_MODE_INPUT_PULLDOWN) {
-				CLR_BIT(gpioTemp->ODR, config->pinNumber);
-			}
-			else if (config->mode == GPIO_MODE_INPUT_PULLUP) {
-				SET_BIT(gpioTemp->ODR, config->pinNumber);
-			}
+		if (config->mode == GPIO_MODE_INPUT_FLOATING) {
+			gpioTemp->CRH &= ~(0b11 << (GPIO_CRL_SHIFT * (config->pinNumber - 8)));
+			gpioTemp->CRH |= (0b01 << (GPIO_CRL_SHIFT * (config->pinNumber - 8)));
 		}
-		else {
-			gpioTemp->CRH &= ~(0b11 << GPIO_CRL_SHIFT * (config->pinNumber - 8));
-			gpioTemp->CRH |= (config->speed << GPIO_CRL_SHIFT * (config->pinNumber - 8));
+		else if (config->mode == GPIO_MODE_INPUT_PULLUP) {
+			gpioTemp->CRH &= ~(0b11 << (GPIO_CRL_SHIFT * (config->pinNumber - 8)));
+			gpioTemp->CRH |= (0b10 << (GPIO_CRL_SHIFT * (config->pinNumber - 8)));
+			SET_BIT(gpioTemp->ODR, config->pinNumber);
 		}
-		gpioTemp->CRH &= ~(0b11 << ((GPIO_CRL_SHIFT * (config->pinNumber - 8)) + 2));
-		gpioTemp->CRH |= (config->mode << ((GPIO_CRL_SHIFT * (config->pinNumber - 8)) + 2));
+		else if (config->mode == GPIO_MODE_INPUT_PULLDOWN) {
+			gpioTemp->CRH &= ~(0b11 << (GPIO_CRL_SHIFT * (config->pinNumber - 8)));
+			gpioTemp->CRH |= (0b10 << (GPIO_CRL_SHIFT * (config->pinNumber - 8)));
+			CLR_BIT(gpioTemp->ODR, config->pinNumber);
+		}
+		else if (config->mode == GPIO_MODE_INPUT_ANALOG) {
+			gpioTemp->CRH &= ~(0b11 << (GPIO_CRL_SHIFT * (config->pinNumber - 8)));
+			gpioTemp->CRH |= (0b00 << (GPIO_CRL_SHIFT * (config->pinNumber - 8)));
+		}
+		else if (config->mode == GPIO_MODE_OUTPUT_PUSHPULL) {
+			gpioTemp->CRH &= ~(0b1111 << (GPIO_CRL_SHIFT * (config->pinNumber - 8)));
+			gpioTemp->CRH |= (config->speed << (GPIO_CRL_SHIFT * (config->pinNumber - 8)));
+			gpioTemp->CRH |= (0b00 << ((GPIO_CRL_SHIFT * (config->pinNumber - 8)) + 2));
+		}
+		else if (config->mode == GPIO_MODE_OUTPUT_OPENDRAIN) {
+			gpioTemp->CRH &= ~(0b1111 << (GPIO_CRL_SHIFT * (config->pinNumber - 8)));
+			gpioTemp->CRH |= (config->speed << (GPIO_CRL_SHIFT * (config->pinNumber - 8)));
+			gpioTemp->CRH |= (0b01 << ((GPIO_CRL_SHIFT * (config->pinNumber - 8)) + 2));
+		}
+		else if (config->mode == GPIO_MODE_AF_PUSHPULL) {
+			gpioTemp->CRH &= ~(0b1111 << (GPIO_CRL_SHIFT * (config->pinNumber - 8)));
+			gpioTemp->CRH |= (config->speed << (GPIO_CRL_SHIFT * (config->pinNumber - 8)));
+			gpioTemp->CRH |= (0b10 << ((GPIO_CRL_SHIFT * (config->pinNumber - 8)) + 2));
+		}
+		else if (config->mode == GPIO_MODE_AF_OPENDRAIN) {
+			gpioTemp->CRH &= ~(0b1111 << (GPIO_CRL_SHIFT * (config->pinNumber - 8)));
+			gpioTemp->CRH |= (config->speed << (GPIO_CRL_SHIFT * (config->pinNumber - 8)));
+			gpioTemp->CRH |= (0b11 << ((GPIO_CRL_SHIFT * (config->pinNumber - 8)) + 2));
+		}
 	}
 }
+
+
 
 GPIO_Pin_State_t MCAL_GPIO_voidReadPin(GPIO_RegDef_t* GPIOx, u8 pinNumber) {
     return ((GPIOx->IDR >> pinNumber) & 0x01);

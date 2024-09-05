@@ -13,6 +13,7 @@
 
 #define GPIOA_ADDR_BASE             (0x40010800)
 #define GPIOB_ADDR_BASE             (0x40010C00)
+#define GPIOC_ADDR_BASE             (0x40011000)
 
 typedef struct {
 	volatile u32 CRL;
@@ -26,7 +27,7 @@ typedef struct {
 
 #define GPIOA                       ((GPIO_RegDef_t*) GPIOA_ADDR_BASE)
 #define GPIOB                       ((GPIO_RegDef_t*) GPIOB_ADDR_BASE)
-#define GPIOC                       ((GPIO_RegDef_t*) GPIOB_ADDR_BASE)
+#define GPIOC                       ((GPIO_RegDef_t*) GPIOC_ADDR_BASE)
 
 #define GPIO_CRL_SHIFT				(4)
 
