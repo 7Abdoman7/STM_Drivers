@@ -1,0 +1,7 @@
+LCD_Program.c:11:6:ECUAL_LCD_voidInit	24	static
+LCD_Program.c:49:6:ECUAL_LCD_voidSendCommand	16	static
+LCD_Program.c:53:6:ECUAL_LCD_voidSendChar	16	static
+LCD_Program.c:57:6:ECUAL_LCD_voidSendString	16	static
+LCD_Program.c:61:6:ECUAL_LCD_voidSendString_XY	24	static
+LCD_Program.c:65:6:ECUAL_LCD_voidSendNumber	16	static
+LCD_Program.c:69:6:ECUAL_LCD_voidSendFloat	16	static

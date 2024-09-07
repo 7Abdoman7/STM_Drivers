@@ -1,0 +1,10 @@
+SYSTICK_Program.c:10:6:MCAL_SYSTICK_voidInit	4	static
+SYSTICK_Program.c:19:6:MCAL_SYSTICK_voidDelayMilliSeconds	16	static
+SYSTICK_Program.c:30:6:MCAL_SYSTICK_voidDelayMicroSeconds	16	static
+SYSTICK_Program.c:41:5:MCAL_SYSTICK_voidGetRemaningTime	4	static
+SYSTICK_Program.c:45:5:MCAL_SYSTICK_voidGetElapsedTime	4	static
+SYSTICK_Program.c:49:6:MCAL_SYSTICK_voidEnableInterupt	4	static
+SYSTICK_Program.c:53:6:MCAL_SYSTICK_voidDisableInterupt	4	static
+SYSTICK_Program.c:59:6:MCAL_SYSTICK_voidStartCountMillisecondsIT	16	static
+SYSTICK_Program.c:69:6:MCAL_SYSTICK_voidStartCountMicrosecondsIT	16	static
+SYSTICK_Program.c:79:6:SysTick_Handler	8	static
