@@ -17,6 +17,7 @@
 
 void MCAL_GPIO_voidInit(GPIO_Config_t * config);
 GPIO_Pin_State_t MCAL_GPIO_voidReadPin(GPIO_RegDef_t* GPIOx, u8 pinNumber);
-void MCAL_GPIO_voidWritePin(GPIO_RegDef_t* GPIOx, u8 pinNumber, u8 value);
+void MCAL_GPIO_voidWritePin(u8 port, u8 pinNumber, u8 value);
+void MCAL_GPIO_voidWritePinArray(u8 port, u8* pinArray, u8 size, u8 value);
 
 #endif /* GPIO_GPIO_INTERFACE_H_ */

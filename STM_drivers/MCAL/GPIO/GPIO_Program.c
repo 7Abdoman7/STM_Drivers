@@ -106,12 +106,36 @@ GPIO_Pin_State_t MCAL_GPIO_voidReadPin(GPIO_RegDef_t* GPIOx, u8 pinNumber) {
     return ((GPIOx->IDR >> pinNumber) & 0x01);
 }
 
-void MCAL_GPIO_voidWritePin(GPIO_RegDef_t* GPIOx, u8 pinNumber, u8 value) {
+static GPIO_RegDef_t* MCAL_GPIO_GetPort(u8 port) {
+    switch (port) {
+        case GPIO_PORTA: return GPIOA;
+        case GPIO_PORTB: return GPIOB;
+        case GPIO_PORTC: return GPIOC;
+    }
+}
+
+void MCAL_GPIO_voidWritePin(u8 port, u8 pinNumber, u8 value) {
+    GPIO_RegDef_t* GPIOx = MCAL_GPIO_GetPort(port);
+
     if (value == GPIO_PIN_SET) {
         GPIOx->BSRR |= (1 << pinNumber);
-    }
-    else {
+    } else {
         GPIOx->BRR |= (1 << pinNumber);
     }
 }
+
+void MCAL_GPIO_voidWritePinArray(u8 port, u8* pinArray, u8 size, u8 value) {
+    GPIO_RegDef_t* GPIOx = MCAL_GPIO_GetPort(port);
+
+    for (u8 i = 0; i < size; i++) {
+        if ((value >> i) & 0x01) {
+            GPIOx->BSRR |= (1 << pinArray[i]);
+        } else {
+            GPIOx->BRR |= (1 << pinArray[i]);
+        }
+    }
+}
+
+
+
 

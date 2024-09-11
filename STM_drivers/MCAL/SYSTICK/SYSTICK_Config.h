@@ -21,7 +21,7 @@ typedef enum {
 } SYSTICK_INT_Mode_t;
 
 #define SYSTICK_CLOCK_SOURCE	SYSTICK_AHB_DIV1
-#define	SYSTEM_CLOCK			(8) // Mhz
+#define	SYSTEM_CLOCK			(8000000)
 
 #define SYSTICK_INT_MODE		(SYSTICK_INT_NON_PERIODIC)
 

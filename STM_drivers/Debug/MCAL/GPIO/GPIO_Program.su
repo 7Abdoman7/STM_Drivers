@@ -1,3 +1,5 @@
 GPIO_Program.c:10:6:MCAL_GPIO_voidInit	24	static
 GPIO_Program.c:105:18:MCAL_GPIO_voidReadPin	16	static
-GPIO_Program.c:109:6:MCAL_GPIO_voidWritePin	16	static
+GPIO_Program.c:109:23:MCAL_GPIO_GetPort	16	static
+GPIO_Program.c:117:6:MCAL_GPIO_voidWritePin	24	static
+GPIO_Program.c:127:6:MCAL_GPIO_voidWritePinArray	24	static
